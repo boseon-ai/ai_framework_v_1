@@ -48,28 +48,6 @@ class FCN(Model):
         self.sess.run(tf.compat.v1.global_variables_initializer())
         
     def _build(self):
-        self.layers.append(CustomizedCNNLayer(name    = 'cnn_layer_1', 
-                                    fshape   = [1,4,22,128],
-                                    pshape   = [1,1,4,1],
-                                    act_fn   = self.act_fn,
-                                    training = self.training))
-
-        self.layers.append(CNNLayer(name     = 'cnn_layer_2', 
-                                    fshape   = [1,3,128,256],
-                                    pshape   = [1,1,3,1],
-                                    act_fn   = self.act_fn))
-        
-        self.layers.append(CNNLayer(name     = 'cnn_layer_3', 
-                                    fshape   = [1,3,256,128],
-                                    pshape   = [1,1,3,1],
-                                    act_fn   = self.act_fn))
-
-        self.layers.append(CNNLayer(name     = 'output_layer',
-                                    fshape   = [1,1,128,self.dout],
-                                    pshape   = [1,1,1,1],
-                                    act_fn   = lambda x: x,
-                                    flatten  = True))
-        """
         self.layers.append(CNNLayer(name     = 'cnn_layer_1', 
                                     fshape   = [1,4,22,256],
                                     pshape   = [1,1,4,1],
@@ -90,7 +68,6 @@ class FCN(Model):
                                     pshape   = [1,1,1,1],
                                     act_fn   = lambda x: x,
                                     flatten  = True))
-        """
 
     def _loss(self):
         self.mse = tf.compat.v1.losses.mean_squared_error(self.y, self.y_hat)

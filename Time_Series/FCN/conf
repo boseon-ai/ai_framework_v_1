@@ -3,7 +3,7 @@ data_dir = /home/jovyan/data/kewp/
 [log]
 log_dir = ./log/
 [model]
-name = fcn_v_1_3
+name = fcn_v_1_2
 batch_size = 32
 epoch = 50
 lr = 0.00001
