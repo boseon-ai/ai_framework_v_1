@@ -1,0 +1,48 @@
+Name: resnet_v_1_1
+Log: ./log/
+Read data from: /home/jovyan/data/kewp/
+file: train_x.pkl, shape: (386209, 22)
+file: train_y.pkl, shape: (386209, 54)
+file: valid_x.pkl, shape: (21457, 22)
+file: valid_y.pkl, shape: (21457, 54)
+file: test_x.pkl, shape: (21454, 22)
+file: test_y.pkl, shape: (21454, 54)
+Normalization: z transform
+x mean shape: (22,), y mean shape: (54,)
+Data reshape into [b, 1, 12, 22]
+train: (386197, 1, 12, 22), (386197, 54)
+valid: (21445, 1, 12, 22), (21445, 54)
+test: (21442, 1, 12, 22), (21442, 54)
+batch size: 32
+total number of batch: 12068
+Check point location: ./log/resnet_v_1_1/
+Optimizer: Adam
+Learning rate: 1e-05, w/o decay
+Activation func: <function relu at 0x7f0787414bf8>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("Relu_2:0", shape=(?, 1, 12, 64), dtype=float32)
+Tensor("Relu_5:0", shape=(?, 1, 12, 128), dtype=float32)
+Tensor("Relu_8:0", shape=(?, 1, 12, 128), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Epoch: 0, MSE: 0.8568706512451172
+Epoch: 1, MSE: 0.7758933305740356
+Epoch: 2, MSE: 0.7740201354026794
+Epoch: 3, MSE: 0.7835891842842102
+Epoch: 4, MSE: 0.7927613854408264
+Epoch: 5, MSE: 0.8062320351600647
+Epoch: 6, MSE: 0.8198626637458801
+Epoch: 7, MSE: 0.8322805762290955
+Epoch: 8, MSE: 0.84173184633255
+Epoch: 9, MSE: 0.8495013117790222
+Loss graph location: ./loss_graphs/resnet_v_1_1.png
+Check point location: ./log/resnet_v_1_1/
+Optimizer: Adam
+Learning rate: 1e-05, w/o decay
+Activation func: <function relu at 0x7f0787414bf8>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("Relu_2:0", shape=(?, 1, 12, 64), dtype=float32)
+Tensor("Relu_5:0", shape=(?, 1, 12, 128), dtype=float32)
+Tensor("Relu_8:0", shape=(?, 1, 12, 128), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Scalable plot location: ./scalable_plots/
+FINAL MSE (w/o overfitting): 0.8131104707717896
