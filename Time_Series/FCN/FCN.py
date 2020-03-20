@@ -2,6 +2,7 @@ import sys
 import tensorflow as tf
 sys.path.append('/home/jovyan/common/')
 
+from tqdm import tqdm
 from layer_v_2 import *
 from model import * 
 
@@ -96,7 +97,7 @@ class FCN(Model):
 
         for i in range(0, epoch):
             train_iterator = self.dm.data['tr_feeder'].get_iterator()
-            for j, (x, y) in enumerate(train_iterator):
+            for j, (x, y) in tqdm(enumerate(train_iterator), desc="epoch_{}".format(i)):
                 _, t_loss = self.sess.run([self.opt_op, self.loss], feed_dict={self.x:x, self.y:y, self.training:True})
                 
             
