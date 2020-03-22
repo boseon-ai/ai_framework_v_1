@@ -1,6 +1,6 @@
 import sys
 import configparser
-sys.path.append('/home/jovyan/framework_v_1/ai_framework_v_1/common/')
+sys.path.append('/home/boseon/v_1/ai_framework_v_1/common/')
 
 from data_manager import *
 from log_manager import *

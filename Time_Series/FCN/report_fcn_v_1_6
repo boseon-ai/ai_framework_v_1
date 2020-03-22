@@ -1,0 +1,52 @@
+Name: fcn_v_1_6
+Log: ./log/
+Read data from: /home/boseon/data/kewp/
+file: train_x.pkl, shape: (386209, 22)
+file: train_y.pkl, shape: (386209, 54)
+file: valid_x.pkl, shape: (21457, 22)
+file: valid_y.pkl, shape: (21457, 54)
+file: test_x.pkl, shape: (21454, 22)
+file: test_y.pkl, shape: (21454, 54)
+Normalization: z transform
+x mean shape: (22,), y mean shape: (54,)
+Data reshape into [b, 1, 12, 22]
+train: (386197, 1, 12, 22), (386197, 54)
+valid: (21445, 1, 12, 22), (21445, 54)
+test: (21442, 1, 12, 22), (21442, 54)
+batch size: 32
+total number of batch: 12068
+Check point location: ./log/fcn_v_1_6/
+Optimizer: Adam
+Learning rate: 1e-05, w/o decay
+Activation func: <function relu at 0x7efed33e67b8>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("MaxPool:0", shape=(?, 1, 3, 512), dtype=float32)
+Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Epoch: 0, test loss (mse): 0.8643956780433655
+Epoch: 1, test loss (mse): 0.7570542097091675
+Epoch: 2, test loss (mse): 0.6581812500953674
+Epoch: 3, test loss (mse): 0.6030906438827515
+Epoch: 4, test loss (mse): 0.5514900088310242
+Epoch: 5, test loss (mse): 0.5158307552337646
+Epoch: 6, test loss (mse): 0.4875349700450897
+Epoch: 7, test loss (mse): 0.46723508834838867
+Epoch: 8, test loss (mse): 0.44937819242477417
+Epoch: 9, test loss (mse): 0.43361565470695496
+Epoch: 10, test loss (mse): 0.42297860980033875
+Epoch: 11, test loss (mse): 0.41127586364746094
+Epoch: 12, test loss (mse): 0.4086402654647827
+Epoch: 13, test loss (mse): 0.40462613105773926
+Loss graph location: ./loss_graphs/fcn_v_1_6.png
+Check point location: ./log/fcn_v_1_6/
+Optimizer: Adam
+Learning rate: 1e-05, w/o decay
+Activation func: <function relu at 0x7efed33e67b8>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("MaxPool:0", shape=(?, 1, 3, 512), dtype=float32)
+Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Scalable plot location: ./scalable_plots/
+FINAL MSE (w/o overfitting): 0.6030906438827515

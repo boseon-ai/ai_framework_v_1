@@ -1,6 +1,6 @@
 import sys
 import tensorflow as tf
-sys.path.append('/home/jovyan/common/')
+sys.path.append('/home/boseon/v_1/ai_framework_v_1/common/')
 
 from tqdm import tqdm
 from layer_v_2 import *
@@ -44,18 +44,18 @@ class FCN(Model):
         self.lm.add_line('Activation func: {}'.format(self.act_fn))
         
         self.build()
-        self.opt_op = tf.group([self.opt_op, update_ops])
+        # self.opt_op = tf.group([self.opt_op, update_ops]) <-- For batch normalization, but not helpful.
         self.saver = tf.compat.v1.train.Saver()
         self.sess.run(tf.compat.v1.global_variables_initializer())
         
     def _build(self):
         self.layers.append(CNNLayer(name     = 'cnn_layer_1', 
-                                    fshape   = [1,4,22,256],
+                                    fshape   = [1,4,22,512],
                                     pshape   = [1,1,4,1],
                                     act_fn   = self.act_fn))
 
         self.layers.append(CNNLayer(name     = 'cnn_layer_2', 
-                                    fshape   = [1,3,256,512],
+                                    fshape   = [1,3,512,512],
                                     pshape   = [1,1,3,1],
                                     act_fn   = self.act_fn))
         
@@ -71,8 +71,10 @@ class FCN(Model):
                                     flatten  = True))
 
     def _loss(self):
+        _vars = tf.trainable_variables()
+        l2_reg = tf.add_n([ tf.nn.l2_loss(v) for v in _vars if 'bias' not in v.name ]) * self.lr
         self.mse = tf.compat.v1.losses.mean_squared_error(self.y, self.y_hat)
-        loss = self.lr * self.mse
+        loss = self.lr * (self.mse + l2_reg)
         return loss
 
     def accuracy(self):
@@ -88,7 +90,7 @@ class FCN(Model):
         dict_rst['labels'] = y
         return dict_rst, mse
     
-    def train(self, epoch, patience=5):
+    def train(self, epoch, patience=10):
         train_loss = []
         valid_loss = []
         
@@ -122,5 +124,5 @@ class FCN(Model):
             dict_rst, mse = self.accuracy()
             self.lm.add_line('Epoch: {}, test loss (mse): {}'.format(i, mse))
             
-        self.save()    
+        # self.save()    
         return train_loss, valid_loss

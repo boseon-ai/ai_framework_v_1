@@ -1,0 +1,91 @@
+Name: fcn_v_1_5
+Log: ./log/
+Read data from: /home/boseon/data/kewp/
+file: x.pkl, shape: (429120, 22)
+file: y.pkl, shape: (429120, 54)
+dataset split (train, test): [0.8, 0.2]
+429120 -> 343296, 85824
+train_x: (343296, 22)
+train_y: (343296, 54)
+test_x: (85824, 22)
+test_y: (85824, 54)
+Normalization: z transform
+x mean shape: (22,), y mean shape: (54,)
+Data reshape into [b, 1, 12, 22]
+train: (343284, 1, 12, 22), (343284, 54)
+test: (85812, 1, 12, 22), (85812, 54)
+validation set extraction: 10%
+shape: (34328, 1, 12, 22), (34328, 54)
+batch size: 32
+total number of batch: 9654
+Check point location: ./log/fcn_v_1_5/
+Optimizer: Adam
+Learning rate: 1e-05, w/o decay
+Activation func: <function relu at 0x7facca609730>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("MaxPool:0", shape=(?, 1, 3, 256), dtype=float32)
+Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Epoch: 0, test loss (mse): 0.6882108449935913
+Epoch: 1, test loss (mse): 0.6692365407943726
+Epoch: 2, test loss (mse): 0.7015076875686646
+Epoch: 3, test loss (mse): 0.7268259525299072
+Epoch: 4, test loss (mse): 0.7655540704727173
+Epoch: 5, test loss (mse): 0.7525764107704163
+Epoch: 6, test loss (mse): 0.7562145590782166
+Epoch: 7, test loss (mse): 0.7828024625778198
+Epoch: 8, test loss (mse): 0.7607325911521912
+Epoch: 9, test loss (mse): 0.7882530689239502
+Epoch: 10, test loss (mse): 0.7846214771270752
+Epoch: 11, test loss (mse): 0.8040903806686401
+Epoch: 12, test loss (mse): 0.7777470350265503
+Epoch: 13, test loss (mse): 0.8127943277359009
+Epoch: 14, test loss (mse): 0.79502272605896
+Epoch: 15, test loss (mse): 0.7940587401390076
+Epoch: 16, test loss (mse): 0.8036260604858398
+Epoch: 17, test loss (mse): 0.7944872379302979
+Epoch: 18, test loss (mse): 0.8135385513305664
+Epoch: 19, test loss (mse): 0.7950921058654785
+Epoch: 20, test loss (mse): 0.8201756477355957
+Epoch: 21, test loss (mse): 0.7935494184494019
+Epoch: 22, test loss (mse): 0.8121050596237183
+Epoch: 23, test loss (mse): 0.7898818850517273
+Epoch: 24, test loss (mse): 0.8109950423240662
+Epoch: 25, test loss (mse): 0.7963807582855225
+Epoch: 26, test loss (mse): 0.8024482131004333
+Epoch: 27, test loss (mse): 0.7884213924407959
+Epoch: 28, test loss (mse): 0.8037125468254089
+Epoch: 29, test loss (mse): 0.7869999408721924
+Epoch: 30, test loss (mse): 0.8011786937713623
+Epoch: 31, test loss (mse): 0.7920370697975159
+Epoch: 32, test loss (mse): 0.7996557354927063
+Epoch: 33, test loss (mse): 0.7939891219139099
+Epoch: 34, test loss (mse): 0.7999717593193054
+Epoch: 35, test loss (mse): 0.7885169982910156
+Epoch: 36, test loss (mse): 0.8029894828796387
+Epoch: 37, test loss (mse): 0.7903651595115662
+Epoch: 38, test loss (mse): 0.7983139157295227
+Epoch: 39, test loss (mse): 0.7914541959762573
+Epoch: 40, test loss (mse): 0.798845648765564
+Epoch: 41, test loss (mse): 0.7892216444015503
+Epoch: 42, test loss (mse): 0.7952858805656433
+Epoch: 43, test loss (mse): 0.7926232218742371
+Epoch: 44, test loss (mse): 0.7965309023857117
+Epoch: 45, test loss (mse): 0.7895796298980713
+Epoch: 46, test loss (mse): 0.7993119955062866
+Epoch: 47, test loss (mse): 0.7946353554725647
+Epoch: 48, test loss (mse): 0.7990068197250366
+Epoch: 49, test loss (mse): 0.7976399660110474
+Loss graph location: ./loss_graphs/fcn_v_1_5.png
+Check point location: ./log/fcn_v_1_5/
+Optimizer: Adam
+Learning rate: 1e-05, w/o decay
+Activation func: <function relu at 0x7facca609730>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("MaxPool:0", shape=(?, 1, 3, 256), dtype=float32)
+Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Scalable plot location: ./scalable_plots/
+FINAL MSE (w/o overfitting): 0.7976399660110474
