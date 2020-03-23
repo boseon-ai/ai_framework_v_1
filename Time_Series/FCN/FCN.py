@@ -38,13 +38,18 @@ class FCN(Model):
         self.training = tf.compat.v1.placeholder_with_default(False, shape=[], name='BN_training')
 
         #update_ops = tf.compat.v1.get_collection(tf.GraphKeys.UPDATE_OPS)
-        self.optimizer = tf.compat.v1.train.AdamOptimizer(self.lr)
+        global_step = tf.Variable(0, trainable=False)
+        num_batch = self.dm.data['tr_feeder'].num_batch
+        self.lr = tf.train.exponential_decay(self.lr, global_step, decay_steps=num_batch, decay_rate=0.9, staircase=True)
+        step_op = tf.assign_add(global_step, 1)
+        with tf.control_dependencies([step_op]):
+            self.optimizer = tf.compat.v1.train.AdamOptimizer(self.lr)
 
         self.lm.add_line('Optimizer: Adam')
-        self.lm.add_line('Learning rate: {}, w/o decay'.format(self.lr))
+        self.lm.add_line('Learning rate: {}, with decay rate of 0.9 for every epoch.'.format(self.lr))
         self.lm.add_line('Activation func: {}'.format(self.act_fn))
         
-        self.build()
+        self.build(global_step)
         # self.opt_op = tf.group([self.opt_op, update_ops]) <-- For batch normalization, but not helpful.
         self.saver = tf.compat.v1.train.Saver()
         self.sess.run(tf.compat.v1.global_variables_initializer())
@@ -96,7 +101,7 @@ class FCN(Model):
         dict_rst['labels'] = y
         return dict_rst, mse
     
-    def train(self, epoch, patience=10):
+    def train(self, epoch, patience=5):
         train_loss = []
         valid_loss = []
         dict_rst = None
@@ -110,15 +115,15 @@ class FCN(Model):
             for j, (x, y) in tqdm(enumerate(train_iterator), desc="epoch_{}".format(i)):
                 _, t_loss = self.sess.run([self.opt_op, self.loss], feed_dict={self.x:x, self.y:y, self.training:True})
             
-            v_loss = self.sess.run(self.loss, feed_dict={self.x:self.dm.data['valid_x'], 
-                                                         self.y:self.dm.data['valid_y'],
-                                                         self.training:False})
+            decayed_lr, v_loss = self.sess.run([self.decayed_lr, self.loss], feed_dict={self.x:self.dm.data['valid_x'], 
+                                                                                        self.y:self.dm.data['valid_y'],
+                                                                                        self.training:False})
 
             train_loss.append(t_loss)
             valid_loss.append(v_loss)
 
             dict_rst, mse = self.accuracy()
-            self.lm.add_line('Epoch: {}, iter: {}, train loss: {}, valid loss: {}, test mse: {}'.format(i, j, t_loss, v_loss, mse))
+            self.lm.add_line('Epoch: {}, iter: {}, lr: {:.10f}, train loss: {:.10f}, valid loss: {:.10f}, test mse: {:.10f}'.format(i, j, decayed_lr, t_loss, v_loss, mse))
 
             if v_loss < max_v_loss:
                 final_mse = mse
