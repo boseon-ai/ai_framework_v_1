@@ -18,35 +18,98 @@ total number of batch: 12068
 Check point location: ./log/fcn_v_1_6/
 Optimizer: Adam
 Learning rate: 1e-05, w/o decay
-Activation func: <function relu at 0x7efed33e67b8>
+Activation func: <function relu at 0x7fb2851a97b8>
 Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
 Tensor("MaxPool:0", shape=(?, 1, 3, 512), dtype=float32)
 Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
 Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
 Tensor("Reshape:0", shape=(?, 54), dtype=float32)
-Epoch: 0, test loss (mse): 0.8643956780433655
-Epoch: 1, test loss (mse): 0.7570542097091675
-Epoch: 2, test loss (mse): 0.6581812500953674
-Epoch: 3, test loss (mse): 0.6030906438827515
-Epoch: 4, test loss (mse): 0.5514900088310242
-Epoch: 5, test loss (mse): 0.5158307552337646
-Epoch: 6, test loss (mse): 0.4875349700450897
-Epoch: 7, test loss (mse): 0.46723508834838867
-Epoch: 8, test loss (mse): 0.44937819242477417
-Epoch: 9, test loss (mse): 0.43361565470695496
-Epoch: 10, test loss (mse): 0.42297860980033875
-Epoch: 11, test loss (mse): 0.41127586364746094
-Epoch: 12, test loss (mse): 0.4086402654647827
-Epoch: 13, test loss (mse): 0.40462613105773926
+Epoch: 0, iter: 12067, train loss: 6.43143550860259e-07, valid loss: 5.232098374108318e-06, test mse: 0.9888303279876709
+Epoch: 1, iter: 12067, train loss: 6.646562837886449e-07, valid loss: 4.831167188967811e-06, test mse: 0.8437063694000244
+Epoch: 2, iter: 12067, train loss: 6.60124044316035e-07, valid loss: 4.792841536982451e-06, test mse: 0.7329429984092712
+Epoch: 3, iter: 12067, train loss: 7.521132943111297e-07, valid loss: 4.756328053190373e-06, test mse: 0.6575324535369873
+Epoch: 4, iter: 12067, train loss: 7.847541496630583e-07, valid loss: 4.777327831106959e-06, test mse: 0.6056690216064453
+Epoch: 5, iter: 12067, train loss: 8.886238447303185e-07, valid loss: 4.81492543258355e-06, test mse: 0.5640832185745239
+Epoch: 6, iter: 12067, train loss: 8.621156553090259e-07, valid loss: 4.869715212407755e-06, test mse: 0.5364213585853577
+Epoch: 7, iter: 12067, train loss: 9.265276617043128e-07, valid loss: 4.933439868182177e-06, test mse: 0.5142040252685547
+Epoch: 8, iter: 12067, train loss: 8.624839438198251e-07, valid loss: 4.993315087631345e-06, test mse: 0.49866607785224915
+Epoch: 9, iter: 12067, train loss: 9.214187457473599e-07, valid loss: 5.0545895646791905e-06, test mse: 0.4850545823574066
+Epoch: 10, iter: 12067, train loss: 8.575397600907309e-07, valid loss: 5.120542482472956e-06, test mse: 0.4758812189102173
+Epoch: 11, iter: 12067, train loss: 9.236389928446442e-07, valid loss: 5.1916435950261075e-06, test mse: 0.4652256965637207
+Epoch: 12, iter: 12067, train loss: 8.442226544502773e-07, valid loss: 5.243948180577718e-06, test mse: 0.45822954177856445
+Epoch: 13, iter: 12067, train loss: 9.126623581323656e-07, valid loss: 5.326641257852316e-06, test mse: 0.44949954748153687
+Epoch: 14, iter: 12067, train loss: 8.414835406256316e-07, valid loss: 5.346077614376554e-06, test mse: 0.44702383875846863
+overfitted
+Epoch: 15, iter: 12067, train loss: 9.166048471342947e-07, valid loss: 5.436301307781832e-06, test mse: 0.4417809545993805
+overfitted
+Epoch: 16, iter: 12067, train loss: 8.322439839503204e-07, valid loss: 5.4397532949224114e-06, test mse: 0.43948450684547424
+overfitted
+Epoch: 17, iter: 12067, train loss: 9.206847835230292e-07, valid loss: 5.518935267900815e-06, test mse: 0.43871480226516724
+overfitted
+Epoch: 18, iter: 12067, train loss: 8.469823455925507e-07, valid loss: 5.488135229825275e-06, test mse: 0.4403564929962158
+overfitted
+Epoch: 19, iter: 12067, train loss: 8.997804457067105e-07, valid loss: 5.579472144745523e-06, test mse: 0.4409988224506378
+overfitted
+Epoch: 20, iter: 12067, train loss: 8.579403925068618e-07, valid loss: 5.535971013159724e-06, test mse: 0.4424322247505188
+overfitted
+Epoch: 21, iter: 12067, train loss: 9.159162459582149e-07, valid loss: 5.633413820760325e-06, test mse: 0.4448418617248535
+overfitted
+Epoch: 22, iter: 12067, train loss: 9.123121458287642e-07, valid loss: 5.605037131317658e-06, test mse: 0.4443383812904358
+overfitted
+Epoch: 23, iter: 12067, train loss: 9.709934829515987e-07, valid loss: 5.697822871297831e-06, test mse: 0.4426887333393097
+overfitted
+Epoch: 24, iter: 12067, train loss: 9.289540230383864e-07, valid loss: 5.6759022299957e-06, test mse: 0.4436851143836975
+overfitted
+Epoch: 25, iter: 12067, train loss: 9.921857326844474e-07, valid loss: 5.756494829256553e-06, test mse: 0.4427639842033386
+overfitted
+Epoch: 26, iter: 12067, train loss: 9.288526712225575e-07, valid loss: 5.722118658013642e-06, test mse: 0.4426068365573883
+overfitted
+Epoch: 27, iter: 12067, train loss: 9.874959232547553e-07, valid loss: 5.816172233608086e-06, test mse: 0.4396490156650543
+overfitted
+Epoch: 28, iter: 12067, train loss: 9.715921578390407e-07, valid loss: 5.821563263452845e-06, test mse: 0.4380417764186859
+overfitted
+Epoch: 29, iter: 12067, train loss: 1.0094765912072035e-06, valid loss: 5.87492741033202e-06, test mse: 0.4353938698768616
+overfitted
+Epoch: 30, iter: 12067, train loss: 9.742070687934756e-07, valid loss: 5.870147106179502e-06, test mse: 0.43146634101867676
+overfitted
+Epoch: 31, iter: 12067, train loss: 1.0125517064807354e-06, valid loss: 5.965915079286788e-06, test mse: 0.4302830100059509
+overfitted
+Epoch: 32, iter: 12067, train loss: 1.0228324072159012e-06, valid loss: 5.967936431261478e-06, test mse: 0.4247995615005493
+overfitted
+Epoch: 33, iter: 12067, train loss: 1.040956817632832e-06, valid loss: 6.021189619787037e-06, test mse: 0.4234001040458679
+overfitted
+Epoch: 34, iter: 12067, train loss: 1.0449887213326292e-06, valid loss: 6.014464815962128e-06, test mse: 0.42598968744277954
+overfitted
+Epoch: 35, iter: 12067, train loss: 1.0972687505272916e-06, valid loss: 6.085001132305479e-06, test mse: 0.4177636206150055
+overfitted
+Epoch: 36, iter: 12067, train loss: 1.088969042939425e-06, valid loss: 6.09933476880542e-06, test mse: 0.4189760088920593
+overfitted
+Epoch: 37, iter: 12067, train loss: 1.1723572015398531e-06, valid loss: 6.165686500025913e-06, test mse: 0.41445934772491455
+overfitted
+Epoch: 38, iter: 12067, train loss: 1.182953951683885e-06, valid loss: 6.140883215266513e-06, test mse: 0.4125506281852722
+overfitted
+Epoch: 39, iter: 12067, train loss: 1.2306061307754135e-06, valid loss: 6.232359737623483e-06, test mse: 0.4079724848270416
+overfitted
+Epoch: 40, iter: 12067, train loss: 1.2353199281278648e-06, valid loss: 6.222922820597887e-06, test mse: 0.4100234806537628
+overfitted
+Epoch: 41, iter: 12067, train loss: 1.3327820624908782e-06, valid loss: 6.312618552328786e-06, test mse: 0.4040485620498657
+overfitted
+Epoch: 42, iter: 12067, train loss: 1.2641276043723337e-06, valid loss: 6.250323622225551e-06, test mse: 0.4074479937553406
+overfitted
+Epoch: 43, iter: 12067, train loss: 1.3634119113703491e-06, valid loss: 6.3183879319694825e-06, test mse: 0.40590140223503113
+overfitted
+Epoch: 44, iter: 12067, train loss: 1.3401835303739063e-06, valid loss: 6.287842097663088e-06, test mse: 0.39815521240234375
+overfitted
+Epoch: 45, iter: 12067, train loss: 1.4277608215707005e-06, valid loss: 6.395997388608521e-06, test mse: 0.3960855305194855
+overfitted
+Epoch: 46, iter: 12067, train loss: 1.440103574168461e-06, valid loss: 6.41810174784041e-06, test mse: 0.39498957991600037
+overfitted
+Epoch: 47, iter: 12067, train loss: 1.5086314988366212e-06, valid loss: 6.449242846429115e-06, test mse: 0.38964444398880005
+overfitted
+Epoch: 48, iter: 12067, train loss: 1.3374882428252022e-06, valid loss: 6.386940185620915e-06, test mse: 0.3923634886741638
+overfitted
+Epoch: 49, iter: 12067, train loss: 1.4335562354972353e-06, valid loss: 6.458554253185866e-06, test mse: 0.39056870341300964
+overfitted
 Loss graph location: ./loss_graphs/fcn_v_1_6.png
-Check point location: ./log/fcn_v_1_6/
-Optimizer: Adam
-Learning rate: 1e-05, w/o decay
-Activation func: <function relu at 0x7efed33e67b8>
-Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
-Tensor("MaxPool:0", shape=(?, 1, 3, 512), dtype=float32)
-Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
-Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
-Tensor("Reshape:0", shape=(?, 54), dtype=float32)
 Scalable plot location: ./scalable_plots/
-FINAL MSE (w/o overfitting): 0.6030906438827515
+FINAL MSE (w/o overfitting): 0.6575324535369873

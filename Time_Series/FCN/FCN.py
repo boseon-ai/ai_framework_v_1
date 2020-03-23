@@ -26,17 +26,18 @@ class CustomizedCNNLayer(CNNLayer):
         return tf.compat.v1.layers.batch_normalization(x, training=training, momentum=momentum)
 
 class FCN(Model):
-    def __init__(self, log_dir, name, lr, data_manager, log_manager, din, dout, act_fn=tf.nn.relu):
+    def __init__(self, log_dir, name, lr, data_manager, log_manager, din, dout, _lambda=0.0001, act_fn=tf.nn.relu):
         super().__init__(log_dir, name, lr, data_manager, log_manager)
         self.din = din
         self.dout = dout
+        self._lambda = _lambda
         self.act_fn = act_fn
 
         self.x = tf.compat.v1.placeholder(dtype=tf.float32, shape=[None, 1, 12, 22], name='X')
         self.y = tf.compat.v1.placeholder(dtype=tf.float32, shape=[None, self.dout], name='Y')
         self.training = tf.compat.v1.placeholder_with_default(False, shape=[], name='BN_training')
 
-        update_ops = tf.compat.v1.get_collection(tf.GraphKeys.UPDATE_OPS)
+        #update_ops = tf.compat.v1.get_collection(tf.GraphKeys.UPDATE_OPS)
         self.optimizer = tf.compat.v1.train.AdamOptimizer(self.lr)
 
         self.lm.add_line('Optimizer: Adam')
@@ -71,11 +72,16 @@ class FCN(Model):
                                     flatten  = True))
 
     def _loss(self):
-        _vars = tf.trainable_variables()
-        l2_reg = tf.add_n([ tf.nn.l2_loss(v) for v in _vars if 'bias' not in v.name ]) * self.lr
         self.mse = tf.compat.v1.losses.mean_squared_error(self.y, self.y_hat)
-        loss = self.lr * (self.mse + l2_reg)
+        #reg_loss = self.l2_reg()
+        #loss = self.lr * (self.mse + reg_loss)
+        loss = self.lr * self.mse
         return loss
+
+    def l2_reg(self):
+        _vars = tf.trainable_variables()
+        reg = self._lambda * tf.add_n([ tf.nn.l2_loss(v) for v in _vars if 'bias' not in v.name ])
+        return reg
 
     def accuracy(self):
         dict_rst = {}
@@ -93,7 +99,9 @@ class FCN(Model):
     def train(self, epoch, patience=10):
         train_loss = []
         valid_loss = []
-        
+        dict_rst = None
+        final_mse = None
+
         cnt = 0
         max_v_loss = np.inf
 
@@ -101,7 +109,6 @@ class FCN(Model):
             train_iterator = self.dm.data['tr_feeder'].get_iterator()
             for j, (x, y) in tqdm(enumerate(train_iterator), desc="epoch_{}".format(i)):
                 _, t_loss = self.sess.run([self.opt_op, self.loss], feed_dict={self.x:x, self.y:y, self.training:True})
-                
             
             v_loss = self.sess.run(self.loss, feed_dict={self.x:self.dm.data['valid_x'], 
                                                          self.y:self.dm.data['valid_y'],
@@ -110,19 +117,18 @@ class FCN(Model):
             train_loss.append(t_loss)
             valid_loss.append(v_loss)
 
-            print ('Epoch: {}, train loss: {}, valid loss: {}'.format(i, t_loss, v_loss))
+            dict_rst, mse = self.accuracy()
+            self.lm.add_line('Epoch: {}, iter: {}, train loss: {}, valid loss: {}, test mse: {}'.format(i, j, t_loss, v_loss, mse))
 
             if v_loss < max_v_loss:
+                final_mse = mse
                 max_v_loss = v_loss
                 self.save()
             else:
                 cnt += 1
                 if cnt > patience:
-                    print ('overfitted')
-                    break
-
-            dict_rst, mse = self.accuracy()
-            self.lm.add_line('Epoch: {}, test loss (mse): {}'.format(i, mse))
+                    self.lm.add_line('overfitted')
+                    #break
             
         # self.save()    
-        return train_loss, valid_loss
+        return dict_rst, final_mse, train_loss, valid_loss
