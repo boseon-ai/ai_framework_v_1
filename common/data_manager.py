@@ -69,6 +69,24 @@ class Data_Feeder:
 
         return _wrapper()
 
+    def get_random_iterator(self, iterations=None):
+        self.current_id = 0
+
+        if iterations == None:
+            self.iter = int(self.num_batch * 1.5)
+        else:
+            self.iter = iterations
+
+        def _wrapper():
+            while self.current_id < self.iter:
+                batch_mask = np.random.choice(self.size, self.batch_size)
+                x_i = self.x[batch_mask, ...]
+                y_i = self.y[batch_mask, ...]
+                yield (x_i, y_i)
+                self.current_id += 1
+
+        return _wrapper()
+
 class Data_Manager:
     def __init__(self, data_dir, log_manager, batch_size, reshape_type, frames, pred_itv, shuffle=False):
         self.data_dir   = data_dir
@@ -149,3 +167,120 @@ class Data_Manager:
 
     def get_dims(self):
         return self.data['train_x'].shape[1], self.data['train_y'].shape[1]
+
+class Data_Manager_v_2:
+    def __init__(self, data_dir, log_manager, batch_size, reshape_type, frames, pred_itv, split_ratio=[0.8, 0.2], shuffle=False):
+        self.data_dir   = data_dir
+        self.lm         = log_manager
+        self.batch_size = batch_size
+        self._files     = ['x', 'y']
+        self.data       = {}
+
+        self.read()
+        self.split(split_ratio)
+        self.x_keys = self.data['x'].keys()
+        self.y_keys = self.data['y'].keys()
+        self.normalize()
+        if reshape_type == 'btnf':
+            self.reshape_btnf(frames, pred_itv)
+        elif reshape_type == 'bhwc':
+            self.reshape_bhwc(frames, pred_itv)
+
+        self.valid_extract()
+        self.gen_feeder(shuffle)
+
+    def read(self):
+        self.lm.add_line('Read data from: {}'.format(self.data_dir))
+        for _file in self._files:
+            pkl = _file + '.pkl'
+            pkl_path = os.path.join(self.data_dir, pkl)
+            self.data[_file] = read_pickle(pkl_path)
+            self.lm.add_line('file: {}, shape: {}'.format(pkl, self.data[_file].shape))
+
+    def split(self, split_ratio):
+        self.lm.add_line('dataset split (train, test): {}'.format(split_ratio))
+        num_data = self.data['x'].shape[0]
+        num_test = int(num_data * split_ratio[-1])
+        num_train = num_data - num_test
+        self.lm.add_line('{} -> {}, {}'.format(num_data, num_train, num_test))
+        self.data['test_x'] = self.data['x'].iloc[-num_test:,:]
+        self.data['test_y'] = self.data['y'].iloc[-num_test:,:]
+        self.data['train_x'] = self.data['x'].iloc[:-num_test,:]
+        self.data['train_y'] = self.data['y'].iloc[:-num_test,:]
+
+        self.categories = ['train_x', 'train_y', 'test_x', 'test_y']
+        for category in self.categories:
+            self.lm.add_line('{}: {}'.format(category, self.data[category].shape)) 
+            
+    def normalize(self):
+        self.lm.add_line('Normalization: z transform')
+        mean_x, std_x = get_mean_std(self.data['train_x'])
+        mean_y, std_y = get_mean_std(self.data['train_y'])
+        self.lm.add_line('x mean shape: {}, y mean shape: {}'.format(mean_x.shape, mean_y.shape))
+        self.x_scaler = Scaler(mean_x, std_x)
+        self.y_scaler = Scaler(mean_y, std_y)
+
+        for category in self.categories:
+            if 'x' in category:
+                self.data[category] = self.x_scaler.transform(self.data[category]).values
+            elif 'y' in category:
+                self.data[category] = self.y_scaler.transform(self.data[category]).values
+            else:
+                raise ValueError
+
+    def denormalize(self, y):
+        y = pd.DataFrame(y, columns=self.y_keys)
+        y = self.y_scaler.inverse_transform(y)
+        return y
+
+    def reshape_btnf(self, frames, pred_itv):
+        nodes = self.data['train_x'].shape[1]
+        features = 1
+        self.lm.add_line('Data reshape into [b, {}, {}, {}]'.format(frames, nodes, features))
+        categories = ['train', 'test']
+        for category in categories:
+            x_ = category + '_x'
+            y_ = category + '_y'
+            self.data[x_], self.data[y_] = reshape_btnf(self.data[x_], self.data[y_], frames, nodes, features, pred_itv)
+            self.lm.add_line('{}: {}, {}'.format(category, self.data[x_].shape, self.data[y_].shape))
+
+    def reshape_bhwc(self, frames, pred_itv):
+        h = 1
+        w = frames
+        c = self.data['train_x'].shape[1]
+        self.lm.add_line('Data reshape into [b, {}, {}, {}]'.format(h, w, c))
+        categories = ['train', 'test']
+        for category in categories:
+            x_ = category + '_x'
+            y_ = category + '_y'
+            self.data[x_], self.data[y_] = reshape_bhwc(self.data[x_], self.data[y_], h, w, c, pred_itv)
+            self.lm.add_line('{}: {}, {}'.format(category, self.data[x_].shape, self.data[y_].shape))
+
+    def gen_feeder(self, shuffle):
+        self.data['tr_feeder'] = Data_Feeder(self.data['train_x'], self.data['train_y'], self.batch_size, shuffle=shuffle)
+        self.data['va_feeder'] = Data_Feeder(self.data['valid_x'], self.data['valid_y'], self.batch_size, shuffle=False)
+        self.data['te_feeder'] = Data_Feeder(self.data['test_x'],  self.data['test_y'],  self.batch_size, shuffle=False)
+
+        self.lm.add_line('batch size: {}'.format(self.batch_size))
+        self.lm.add_line('total number of batch: {}'.format(self.data['tr_feeder'].num_batch))
+
+    def get_dims(self):
+        return self.data['train_x'].shape[1], self.data['train_y'].shape[1]
+
+    def valid_extract(self, valid_ratio=0.2):
+        self.lm.add_line('validation set extraction: 10%')
+        num_train = self.data['train_x'].shape[0]
+        ids = np.arange(num_train)
+        ids = np.random.permutation(ids)
+        self.data['train_x'] = self.data['train_x'][ids]
+        self.data['train_y'] = self.data['train_y'][ids]
+        num_valid = int(num_train * valid_ratio)
+        self.data['valid_x'] = self.data['train_x'][-num_valid:]
+        self.data['valid_y'] = self.data['train_y'][-num_valid:]
+        self.data['train_x'] = self.data['train_x'][:num_train-num_valid]
+        self.data['train_y'] = self.data['train_y'][:num_train-num_valid]
+        self.lm.add_line('train: {}, {}'.format(self.data['train_x'].shape, self.data['train_y'].shape))
+        self.lm.add_line('valid: {}, {}'.format(self.data['valid_x'].shape, self.data['valid_y'].shape))
+
+
+

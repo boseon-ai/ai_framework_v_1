@@ -26,7 +26,7 @@ class Model:
         if os.path.exists(self.ckptdir) == False:
             os.makedirs(self.ckptdir)
             
-    def build(self):
+    def build(self, global_step=None):
         self._build()
         
         self.activations.append(self.x)
@@ -38,7 +38,10 @@ class Model:
             
         self.y_hat = self.activations[-1]
         self.loss = self._loss()
-        self.opt_op = self.optimizer.minimize(self.loss)
+        if global_step:
+            self.opt_op = self.optimizer.minimize(self.loss, global_step=global_step)
+        else:
+            self.opt_op = self.optimizer.minimize(self.loss)
         
     def _build(self):
         return NotImplementedError
