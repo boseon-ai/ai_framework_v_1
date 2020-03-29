@@ -1,0 +1,123 @@
+Name: fcn_v_1_6
+Log: ./log/
+Read data from: /home/boseon/data/kewp/
+file: train_x.pkl, shape: (386209, 22)
+file: train_y.pkl, shape: (386209, 54)
+file: valid_x.pkl, shape: (21457, 22)
+file: valid_y.pkl, shape: (21457, 54)
+file: test_x.pkl, shape: (21454, 22)
+file: test_y.pkl, shape: (21454, 54)
+Normalization: z transform
+x mean shape: (22,), y mean shape: (54,)
+Data reshape into [b, 1, 12, 22]
+train: (386197, 1, 12, 22), (386197, 54)
+valid: (21445, 1, 12, 22), (21445, 54)
+test: (21442, 1, 12, 22), (21442, 54)
+batch size: 32
+total number of batch: 12068
+Check point location: ./log/fcn_v_1_6/
+Optimizer: Adam
+Learning rate: 1e-05, with decay rate of 0.9 for every epoch.
+Activation func: <function relu at 0x7fda2b4ba7b8>
+Tensor("X:0", shape=(?, 1, 12, 22), dtype=float32)
+Tensor("MaxPool:0", shape=(?, 1, 3, 512), dtype=float32)
+Tensor("MaxPool_1:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("MaxPool_2:0", shape=(?, 1, 1, 512), dtype=float32)
+Tensor("Reshape:0", shape=(?, 54), dtype=float32)
+Epoch: 0, iter: 18101, lr: 0.0000090000, train loss: 0.0000018073, valid loss: 0.0000056244, test mse: 0.6241915226
+Epoch: 1, iter: 18101, lr: 0.0000072900, train loss: 0.0000019506, valid loss: 0.0000056538, test mse: 0.5742992759
+Epoch: 2, iter: 18101, lr: 0.0000065610, train loss: 0.0000014895, valid loss: 0.0000057594, test mse: 0.5988648534
+Epoch: 3, iter: 18101, lr: 0.0000053144, train loss: 0.0000019127, valid loss: 0.0000058751, test mse: 0.6382788420
+Epoch: 4, iter: 18101, lr: 0.0000047830, train loss: 0.0000014034, valid loss: 0.0000058533, test mse: 0.6309500337
+Epoch: 5, iter: 18101, lr: 0.0000038742, train loss: 0.0000012966, valid loss: 0.0000057316, test mse: 0.6109696627
+Epoch: 6, iter: 18101, lr: 0.0000034868, train loss: 0.0000014756, valid loss: 0.0000059002, test mse: 0.6408556700
+overfitted
+Epoch: 7, iter: 18101, lr: 0.0000028243, train loss: 0.0000010756, valid loss: 0.0000058737, test mse: 0.6391661763
+overfitted
+Epoch: 8, iter: 18101, lr: 0.0000025419, train loss: 0.0000013338, valid loss: 0.0000058387, test mse: 0.6568685174
+overfitted
+Epoch: 9, iter: 18101, lr: 0.0000020589, train loss: 0.0000010645, valid loss: 0.0000058259, test mse: 0.6428360343
+overfitted
+Epoch: 10, iter: 18101, lr: 0.0000018530, train loss: 0.0000006884, valid loss: 0.0000058798, test mse: 0.6451122761
+overfitted
+Epoch: 11, iter: 18101, lr: 0.0000015009, train loss: 0.0000013790, valid loss: 0.0000058505, test mse: 0.6349006891
+overfitted
+Epoch: 12, iter: 18101, lr: 0.0000013509, train loss: 0.0000016581, valid loss: 0.0000059173, test mse: 0.6847942472
+overfitted
+Epoch: 13, iter: 18101, lr: 0.0000010942, train loss: 0.0000027905, valid loss: 0.0000058400, test mse: 0.6456097960
+overfitted
+Epoch: 14, iter: 18101, lr: 0.0000009848, train loss: 0.0000009863, valid loss: 0.0000058279, test mse: 0.6351404190
+overfitted
+Epoch: 15, iter: 18101, lr: 0.0000007977, train loss: 0.0000010925, valid loss: 0.0000058164, test mse: 0.6107260585
+overfitted
+Epoch: 16, iter: 18101, lr: 0.0000007179, train loss: 0.0000009820, valid loss: 0.0000058430, test mse: 0.6491453648
+overfitted
+Epoch: 17, iter: 18101, lr: 0.0000005815, train loss: 0.0000012026, valid loss: 0.0000058486, test mse: 0.6523089409
+overfitted
+Epoch: 18, iter: 18101, lr: 0.0000005233, train loss: 0.0000010353, valid loss: 0.0000058479, test mse: 0.6470078230
+overfitted
+Epoch: 19, iter: 18101, lr: 0.0000004239, train loss: 0.0000013265, valid loss: 0.0000058520, test mse: 0.6504346728
+overfitted
+Epoch: 20, iter: 18101, lr: 0.0000003815, train loss: 0.0000009958, valid loss: 0.0000058694, test mse: 0.6505775452
+overfitted
+Epoch: 21, iter: 18101, lr: 0.0000003090, train loss: 0.0000010558, valid loss: 0.0000058698, test mse: 0.6578723788
+overfitted
+Epoch: 22, iter: 18101, lr: 0.0000002781, train loss: 0.0000010661, valid loss: 0.0000058827, test mse: 0.6544976234
+overfitted
+Epoch: 23, iter: 18101, lr: 0.0000002253, train loss: 0.0000010797, valid loss: 0.0000058871, test mse: 0.6463402510
+overfitted
+Epoch: 24, iter: 18101, lr: 0.0000002028, train loss: 0.0000010567, valid loss: 0.0000058732, test mse: 0.6574820876
+overfitted
+Epoch: 25, iter: 18101, lr: 0.0000001642, train loss: 0.0000013107, valid loss: 0.0000058712, test mse: 0.6528854370
+overfitted
+Epoch: 26, iter: 18101, lr: 0.0000001478, train loss: 0.0000012995, valid loss: 0.0000058828, test mse: 0.6552675962
+overfitted
+Epoch: 27, iter: 18101, lr: 0.0000001197, train loss: 0.0000010556, valid loss: 0.0000058759, test mse: 0.6577756405
+overfitted
+Epoch: 28, iter: 18101, lr: 0.0000001078, train loss: 0.0000014118, valid loss: 0.0000058687, test mse: 0.6528467536
+overfitted
+Epoch: 29, iter: 18101, lr: 0.0000000873, train loss: 0.0000007646, valid loss: 0.0000058856, test mse: 0.6575623155
+overfitted
+Epoch: 30, iter: 18101, lr: 0.0000000786, train loss: 0.0000011404, valid loss: 0.0000058714, test mse: 0.6479693651
+overfitted
+Epoch: 31, iter: 18101, lr: 0.0000000636, train loss: 0.0000008445, valid loss: 0.0000058753, test mse: 0.6514444351
+overfitted
+Epoch: 32, iter: 18101, lr: 0.0000000573, train loss: 0.0000013717, valid loss: 0.0000058700, test mse: 0.6523507237
+overfitted
+Epoch: 33, iter: 18101, lr: 0.0000000464, train loss: 0.0000013850, valid loss: 0.0000058773, test mse: 0.6530736685
+overfitted
+Epoch: 34, iter: 18101, lr: 0.0000000417, train loss: 0.0000012765, valid loss: 0.0000058769, test mse: 0.6517305970
+overfitted
+Epoch: 35, iter: 18101, lr: 0.0000000338, train loss: 0.0000009937, valid loss: 0.0000058775, test mse: 0.6541838050
+overfitted
+Epoch: 36, iter: 18101, lr: 0.0000000304, train loss: 0.0000009108, valid loss: 0.0000058779, test mse: 0.6581786871
+overfitted
+Epoch: 37, iter: 18101, lr: 0.0000000247, train loss: 0.0000006654, valid loss: 0.0000058757, test mse: 0.6523239613
+overfitted
+Epoch: 38, iter: 18101, lr: 0.0000000222, train loss: 0.0000010747, valid loss: 0.0000058795, test mse: 0.6524670124
+overfitted
+Epoch: 39, iter: 18101, lr: 0.0000000180, train loss: 0.0000008591, valid loss: 0.0000058748, test mse: 0.6493305564
+overfitted
+Epoch: 40, iter: 18101, lr: 0.0000000162, train loss: 0.0000008875, valid loss: 0.0000058714, test mse: 0.6510174870
+overfitted
+Epoch: 41, iter: 18101, lr: 0.0000000131, train loss: 0.0000009457, valid loss: 0.0000058775, test mse: 0.6533703804
+overfitted
+Epoch: 42, iter: 18101, lr: 0.0000000118, train loss: 0.0000010226, valid loss: 0.0000058756, test mse: 0.6502487063
+overfitted
+Epoch: 43, iter: 18101, lr: 0.0000000096, train loss: 0.0000012301, valid loss: 0.0000058736, test mse: 0.6520376205
+overfitted
+Epoch: 44, iter: 18101, lr: 0.0000000086, train loss: 0.0000008222, valid loss: 0.0000058757, test mse: 0.6513328552
+overfitted
+Epoch: 45, iter: 18101, lr: 0.0000000070, train loss: 0.0000010168, valid loss: 0.0000058749, test mse: 0.6507967710
+overfitted
+Epoch: 46, iter: 18101, lr: 0.0000000063, train loss: 0.0000011730, valid loss: 0.0000058776, test mse: 0.6532180905
+overfitted
+Epoch: 47, iter: 18101, lr: 0.0000000051, train loss: 0.0000014583, valid loss: 0.0000058773, test mse: 0.6540283561
+overfitted
+Epoch: 48, iter: 18101, lr: 0.0000000046, train loss: 0.0000008484, valid loss: 0.0000058771, test mse: 0.6543474793
+overfitted
+Epoch: 49, iter: 18101, lr: 0.0000000037, train loss: 0.0000010741, valid loss: 0.0000058778, test mse: 0.6535831094
+overfitted
+Loss graph location: ./loss_graphs/fcn_v_1_6.png
+Scalable plot location: ./scalable_plots/
+FINAL MSE (w/o overfitting): 0.6241915225982666

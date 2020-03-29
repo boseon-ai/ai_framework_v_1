@@ -1,0 +1,44 @@
+Name: dnn_v_1_1
+Log: ./log/
+Read data from: /home/jovyan/data/kewp/
+file: train_x.pkl, shape: (386209, 22)
+file: train_y.pkl, shape: (386209, 54)
+file: valid_x.pkl, shape: (21457, 22)
+file: valid_y.pkl, shape: (21457, 54)
+file: test_x.pkl, shape: (21454, 22)
+file: test_y.pkl, shape: (21454, 54)
+Normalization: z transform
+x mean shape: (22,), y mean shape: (54,)
+batch size: 32
+total number of batch: 12069
+Check point location: ./log/dnn_v_1_1/
+Optimizer: Adam
+Learning rate: 0.0001, w/o decay
+Activation func: <function relu at 0x7f2e70ebfa60>
+Tensor("X:0", shape=(?, 22), dtype=float32)
+Tensor("dropout/mul_1:0", shape=(?, 500), dtype=float32)
+Tensor("dropout_1/mul_1:0", shape=(?, 500), dtype=float32)
+Tensor("dropout_2/mul_1:0", shape=(?, 500), dtype=float32)
+Tensor("dropout_3/mul_1:0", shape=(?, 54), dtype=float32)
+Epoch: 0, MSE: 0.8794901967048645
+Epoch: 1, MSE: 0.8185653686523438
+Epoch: 2, MSE: 0.7619836926460266
+Epoch: 3, MSE: 0.7473745942115784
+Epoch: 4, MSE: 0.7362943291664124
+Epoch: 5, MSE: 0.736840546131134
+Epoch: 6, MSE: 0.7275123596191406
+Epoch: 7, MSE: 0.7189841270446777
+Epoch: 8, MSE: 0.7244396209716797
+Epoch: 9, MSE: 0.7096931338310242
+Loss graph location: ./loss_graphs/dnn_v_1_1.png
+Check point location: ./log/dnn_v_1_1/
+Optimizer: Adam
+Learning rate: 0.0001, w/o decay
+Activation func: <function relu at 0x7f2e70ebfa60>
+Tensor("X:0", shape=(?, 22), dtype=float32)
+Tensor("dropout/mul_1:0", shape=(?, 500), dtype=float32)
+Tensor("dropout_1/mul_1:0", shape=(?, 500), dtype=float32)
+Tensor("dropout_2/mul_1:0", shape=(?, 500), dtype=float32)
+Tensor("dropout_3/mul_1:0", shape=(?, 54), dtype=float32)
+Scalable plot location: ./scalable_plots/
+FINAL MSE (w/o overfitting): 0.7340157628059387

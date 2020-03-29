@@ -1,0 +1,11 @@
+[data]
+data_dir = /home/boseon/data/kewp/
+[log]
+log_dir = ./log/
+[model]
+name = fcn_v_1_6
+batch_size = 32
+epoch = 50
+lr = 0.00001
+width = 12
+pred_itv = 0
